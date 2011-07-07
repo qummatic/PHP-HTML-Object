@@ -8,9 +8,9 @@
  * and Other HTML Object.
  *
  * @author      Abdul Hanan (http://hanan.qummatic.com)
- * @copyright   2010 bekasi-code.qummatic.com
+ * @copyright   2011 bekasi-code.qummatic.com
  * @license     http://creativecommons.org/licenses/GPL/2.0/ CC-GNU GPL version 2 or later
- * @version     ver 0.1
+ * @version     ver 0.2-dev
  * @link        http://bekasi-code.qummatic.com/html-object
  *
  */
