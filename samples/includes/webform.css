@@ -1,0 +1,49 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 9pt;
+}
+
+h1 {
+    font-size: 12pt;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+form {
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+form#testform{
+    width: 650px;
+}
+
+.fielditem {
+    
+}
+
+.fieldtitle {
+    
+}
+
+.fieldcontent {
+    padding-left: 8px;
+}
+
+.fieldbutton {
+    width: 100%;
+    margin-top: 7px;
+}
+
+#formcontent-left {
+    float: left;
+    margin-right: 1%;
+    width: 48%;
+}
+
+#formcontent-right {
+    float: right;
+    margin-left: 1%;
+    width: 48%;
+}

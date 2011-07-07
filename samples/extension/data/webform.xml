@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<hoform>
+    <!-- header section -->
+    <id>testform</id>
+    <name>testform</name>
+    <method>post</method>
+    <action>webform.php</action>
+    <attribute>
+        <item name='class'>webform</item>
+    </attribute>
+    <!-- header section -->
+
+    <!-- field section -->
+    <field>
+        <id>address</id>
+        <name>address</name>
+        <title>Your Address</title>
+        <type>input|text</type>
+        <value><![CDATA[Bekasi, West Java, Indonesia]]></value>
+        <attribute>
+            <item name='class'>form-input</item>
+        </attribute>
+    </field>
+    <field>
+        <id>city</id>
+        <name>city</name>
+        <title>Your city</title>
+        <type>select</type>
+        <value>
+            <item name='JKT'>Jakarta</item>
+            <item name='BDG' selected='1'>Bandung</item>
+            <item name='SMG'>Semarang</item>
+        </value>
+        <attribute>
+            <item name='class'>form-input</item>
+        </attribute>
+    </field>
+    <field>
+        <id>region</id>
+        <name>region</name>
+        <title>Your Region</title>
+        <type>input|text</type>
+        <value><![CDATA[Indonesia]]></value>
+        <attribute>
+            <item name='class'>form-input</item>
+        </attribute>
+        <datalist>
+            <item value='Indonesia' />
+            <item value='US' />
+            <item value='UK' />
+        </datalist>
+    </field>
+    <field>
+        <id>yourange</id>
+        <name>yourange</name>
+        <title>Range</title>
+        <type>input|range</type>
+        <value>0</value>
+        <attribute>
+            <item name='step'>10</item>
+            <item name='min'>-100</item>
+            <item name='max'>100</item>
+        </attribute>
+        <datalist>
+            <item value='0' />
+            <item value='-30' />
+            <item value='30' />
+            <item value='+50' />
+        </datalist>
+    </field>    
+    <field>
+        <id>date</id>
+        <name>date</name>
+        <title>Date</title>
+        <type>input|date</type>
+    </field>
+    <field>
+        <id>website</id>
+        <name>website</name>
+        <title>Your website</title>
+        <type>input|url</type>
+        <attribute>
+            <item name='class'>form-input</item>
+        </attribute>
+        <datalist>
+            <item value='http://www.google.com' label='Google' />
+            <item value='http://www.facebook.com' label='Facebook' />
+        </datalist>
+    </field>
+    <!-- field section -->
+
+    <!-- button section -->
+    <submit>
+        <id>formsubmit</id>
+        <name>formsubmit</name>
+        <value>Save</value>
+        <attribute>
+            <item name='class'>form-button</item>
+        </attribute>
+    </submit>
+    <reset>
+        <id>formreset</id>
+        <name>formreset</name>
+        <value>Reset</value>
+        <attribute>
+            <item name='class'>form-button</item>
+        </attribute>
+    </reset>
+    <button>
+        <id>buttoncancel</id>
+        <name>buttoncancel</name>
+        <value>Cancel</value>
+        <attribute>
+            <item name='class'>form-button</item>
+        </attribute>
+    </button>
+    <!-- button section -->
+</hoform>
