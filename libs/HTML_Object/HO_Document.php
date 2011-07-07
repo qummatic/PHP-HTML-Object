@@ -27,7 +27,7 @@
  *
  * @subpackage HTML Document
  * @access  private
- * @version class-ver 0.1.1
+ * @version class-ver 0.2-dev
  * @author Abdul Hanan (http://hanan.qummatic.com)
  */
 class HO_Document extends HTML_Object
