@@ -23,8 +23,8 @@ Early features of them:
     * Frequently Used Tags
     * Generating HTML Document / Web Pages
     * HTML Tables 
-    * HTML Form (new)
-    * Extension (new)
+    * HTML Form
+    * Extension
 
 
 Author
@@ -70,21 +70,3 @@ You can look at sample codes which using HTML Object Library in 'samples' folder
  
  Extension:
  * extension/webform.php, creating html web form form with HTML Object Webform Extension
-
-Source code
------------
-For developers can checkout the latest source code, 
-http://code.google.com/p/html-object/source/checkout. 
-
-You can use IDE or SVN GUI client to check out the latest development source 
-code, or with command line :
-
-svn checkout http://html-object.googlecode.com/svn/trunk/ html-object
-
-
-Contribute
-----------
-HTML Object invites to join our community if you have some spare time, this project 
-is open source project.
-
-Visit : http://html-object.googlecode.com
