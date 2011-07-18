@@ -12,9 +12,9 @@
  * @category    PHP Object
  * @package     HTML Object
  * @author      Abdul Hanan (http://hanan.qummatic.com) Original Author
- * @copyright   2010 bekasi-code.qummatic.com
+ * @copyright   2011 bekasi-code.qummatic.com
  * @license     http://www.gnu.org/licenses/lgpl-3.0.txt LGPL Version 3
- * @version     ver 0.1
+ * @version     ver 0.2
  * @link        http://bekasi-code.qummatic.com/html-object
  */
 
@@ -30,8 +30,11 @@
  * - page: HTML_Object::page(), Defines a paragraph
  * - bold: HTML_Object::bold(), Defines bold text
  * - strong: HTML_Object::strong(), Defines strong text
- * - italic: HTML_Object::italic(), Defines italic text
- * - underline: HTML_Object::italic(), Defines underlined text
+ * - italic: HTML_Object::italic(), Defines italic text, added in v0.2
+ * - emphasize: HTML_Object::emphasize(), Renders as emphasized text
+ * - underline: HTML_Object::underline(), Defines underlined text
+ * - strike: HTML_Object::strike(), Defines underlined text, added in v0.2
+ * - delete: HTML_Object::delete(), Defines text that has been deleted from a document, added in v0.2
  * - ruler: HTML_Object::ruler(), Defines a horizontal line
  * - bullet: HTML_Object::bullet(), Defines an unordered list (a bulleted list)
  * - numbering: HTML_Object::numbering(), Defines an ordered list (numerical / alphabetical list)
@@ -43,7 +46,7 @@
  * - header: HTML_Object::header(), Defines HTML headings
  *
  * @access public
- * @version class-ver 0.1.1
+ * @version class-ver 0.2
  * @author Abdul Hanan (http://hanan.qummatic.com)
  */
 class HTML_Object
@@ -71,6 +74,29 @@ class HTML_Object
         $this->Document = new HO_Document;
         $this->Table = new HO_Table;
         $this->Form = new HO_Form;
+    }
+
+    /**
+     * Generating formating content
+     *
+     * This method generate formating content with wiki markup.
+     * Added in v0.2
+     *
+     * @access  public
+     * @param string $argContent
+     * @return  string
+     */
+    protected function formating($argContent)
+    {
+        $content = preg_replace("/'''(.*?)'''/", $this->strong('$1'), $argContent);
+        $content = preg_replace("/''(.*?)''/", $this->emphasize('$1'), $content);
+        $content = preg_replace('/<del>(.*?)<\/del>/', $this->delete('$1'), $content);
+        $content = preg_replace('/<s>(.*?)<\/s>/', $this->strike('$1'), $content);
+        $content = preg_replace('/<u>(.*?)<\/u>/i', $this->span('$1'), $content);
+        $content = preg_replace('/\[(.*?) (.*?)\]/', $this->link('$2', '$1', NULL, NULL, array('title'=>'$2')), $content);
+        $content = preg_replace('/\[(.*?)]/', $this->link('$1', '$1'), $content);
+
+        return $content;
     }
 
     /**
@@ -148,10 +174,8 @@ class HTML_Object
         if ($argAttributes && is_array($argAttributes))
             $attributes = array_merge($attributes, $argAttributes);
         // }}}
-        $tagSpan = $this->__span($argID, $atributes);
-        $tagSpan->innerHTML($argHTML);
 
-        return $tagSpan->fetch();
+        return $this->__span($argID, $attributes)->innerHTML($argHTML)->fetch();
     }
 
     /**
@@ -179,10 +203,9 @@ class HTML_Object
         if ($argAttributes && is_array($argAttributes))
             $attributes = array_merge($attributes, $argAttributes);
         // }}}
-        $tagDiv = $this->__div($argID, $attributes);
-        $tagDiv->innerHTML($argHTML);
 
-        return $tagDiv->fetch();
+        $innerHTML = $this->formating($argHTML);
+        return $this->__div($argID, $attributes)->innerHTML($innerHTML)->fetch();
     }
 
     /**
@@ -210,11 +233,9 @@ class HTML_Object
         if ($argAttributes && is_array($argAttributes))
             $attributes = array_merge($attributes, $argAttributes);
         // }}}
-            
-        $tagPage = $this->__p($argID, $attributes);
-        $tagPage->innerHTML($argHTML);
 
-        return $tagPage->fetch();
+        $innerHTML = $this->formating($argHTML);
+        return $this->__p($argID, $attributes)->innerHTML($innerHTML)->fetch();
     }
 
     /**
@@ -239,10 +260,8 @@ class HTML_Object
         if ($argAttributes && is_array($argAttributes))
             $attributes = array_merge($attributes, $argAttributes);
         // }}}    
-        $tagBold = $this->__b($argID, $attributes);
-        $tagBold->innerHTML($argHTML);
 
-        return $tagBold->fetch();
+        return $this->__b($argID, $attributes)->innerHTML($argHTML)->fetch();
     }
 
     /**
@@ -267,10 +286,8 @@ class HTML_Object
         if ($argAttributes && is_array($argAttributes))
             $attributes = array_merge($attributes, $argAttributes);
         // }}}
-        $tagStrong = $this->__strong($argID, $attributes);
-        $tagStrong->innerHTML($argHTML);
 
-        return $tagStrong->fetch();
+        return $this->__strong($argID, $attributes)->innerHTML($argHTML)->fetch();
     }
 
     /**
@@ -295,12 +312,39 @@ class HTML_Object
         if ($argAttributes && is_array($argAttributes))
             $attributes = array_merge($attributes, $argAttributes);
         // }}}    
-        $tagImage = $this->__i($argID, $attributes);
-        $tagImage->innerHTML($argHTML);
+        // $tagImage = ;
 
-        return $tagImage->fetch();
+        return $this->__i($argID, $attributes)->innerHTML($argHTML)->fetch();
     }
-    
+
+    /**
+     * Renders as emphasized text
+     *
+     * This method returns <em> tag, includes ID attribute, CLASS
+     * attribute and custom defined attributes.
+     * Added in v0.2
+     *
+     * @access public
+     * @param string $argHTML
+     * @param string $argID
+     * @param string $argClass
+     * @param array $argAttributes
+     * @return string
+     */
+    public function emphasize($argHTML, $argID = NULL, $argClass = NULL, $argAttributes = array())
+    {
+        // {{{ assigning variable $attributes
+        $attributes = array();
+        if (!is_null($argClass) && trim($argClass))
+            $attributes['class'] = $argClass;
+        if ($argAttributes && is_array($argAttributes))
+            $attributes = array_merge($attributes, $argAttributes);
+        // }}}
+        // $tagImage = ;
+
+        return $this->__em($argID, $attributes)->innerHTML($argHTML)->fetch();
+    }
+
     /**
      * Defines underlined text
      *
@@ -321,6 +365,60 @@ class HTML_Object
     }
 
     /**
+     * Specifies text that is no longer correct, accurate or relevant
+     *
+     * This method returns <s> tag, includes ID attribute, CLASS
+     * attribute and custom defined attributes
+     *
+     * @access public
+     * @param string $argHTML
+     * @param string $argID
+     * @param string $argClass
+     * @param array $argAttributes
+     * @return string
+     */
+    public function strike($argHTML, $argID = NULL, $argClass = NULL, $argAttributes = array())
+    {
+        // {{{ assigning variable $attributes
+        $attributes = array();
+        if (!is_null($argClass) && trim($argClass))
+            $attributes['class'] = $argClass;
+        if ($argAttributes && is_array($argAttributes))
+            $attributes = array_merge($attributes, $argAttributes);
+        // }}}
+        // $tagImage = ;
+
+        return $this->__s($argID, $attributes)->innerHTML($argHTML)->fetch();
+    }
+
+    /**
+     * Defines text that has been deleted from a document
+     *
+     * This method returns <s> tag, includes ID attribute, CLASS
+     * attribute and custom defined attributes
+     *
+     * @access public
+     * @param string $argHTML
+     * @param string $argID
+     * @param string $argClass
+     * @param array $argAttributes
+     * @return string
+     */
+    public function delete($argHTML, $argID = NULL, $argClass = NULL, $argAttributes = array())
+    {
+        // {{{ assigning variable $attributes
+        $attributes = array();
+        if (!is_null($argClass) && trim($argClass))
+            $attributes['class'] = $argClass;
+        if ($argAttributes && is_array($argAttributes))
+            $attributes = array_merge($attributes, $argAttributes);
+        // }}}
+        // $tagImage = ;
+
+        return $this->__del($argID, $attributes)->innerHTML($argHTML)->fetch();
+    }
+
+    /**
      * Defines a horizontal line
      *
      * This method returns <hr /> tag, includes ID attribute
@@ -331,10 +429,7 @@ class HTML_Object
      */
     public function ruler($argID = NULL)
     {
-
-        $tagRuler = $this->__hr($argID);
-
-        return $tagRuler->fetch();
+        return $this->__hr($argID)->fetch();
     }
 
     /**
@@ -378,10 +473,8 @@ class HTML_Object
         if ($argAttributes && is_array($argAttributes))
             $attributes = array_merge($attributes, $argAttributes);
         // }}}        
-        $tagBullet = $this->__ul($argID, $attributes);
-        $tagBullet->innerHTML($list);
 
-        return $tagBullet->fetch();
+        return $this->__ul($argID, $attributes)->innerHTML($list)->fetch();
     }
 
     /**
@@ -425,10 +518,8 @@ class HTML_Object
         if ($argAttributes && is_array($argAttributes))
             $attributes = array_merge($attributes, $argAttributes);
         // }}}
-        $tagNumbering = $this->__ol($argID, $attributes);
-        $tagNumbering->innerHTML($list);
 
-        return $tagNumbering->fetch();
+        return $this->__ol($argID, $attributes)->innerHTML($list)->fetch();
     }
 
     /**
@@ -446,12 +537,7 @@ class HTML_Object
      */
     public function script($argScript, $argType = 'text/javascript', $argID = NULL, $argAttributes = array())
     {
-        $tagScript = $this->__script($argID, $argAttributes);
-
-        $tagScript->attribute('type', $argType);
-        $tagScript->innerHTML("<!--\n".$argScript."\n-->");
-        
-        return $tagScript->fetch();
+        return $this->__script($argID, $argAttributes)->attribute('type', $argType)->innerHTML("<!--\n".$argScript."\n-->")->fetch();
     }
 
     /** 
@@ -475,10 +561,8 @@ class HTML_Object
         if ($argAttributes && is_array($argAttributes))
             $attributes = array_merge($attributes, $argAttributes);
         // }}}
-        $tagStyle = $this->__style($argID, $attributes);
-        $tagStyle->innerHTML("<!--\n".$argStyle."\n-->");
-
-        return $tagStyle->fetch();
+        
+        return $this->__style($argID, $attributes)->innerHTML("<!--\n".$argStyle."\n-->")->fetch();
     }
 
     /**
@@ -491,9 +575,7 @@ class HTML_Object
      */
     public function newline()
     {
-        $tagNewLine = $this->__br();
-
-        return $tagNewLine->fetch();
+        return $this->__br()->fetch();
     }
 
     /**
@@ -519,8 +601,8 @@ class HTML_Object
         if ($argAttributes && is_array($argAttributes))
             $attributes = array_merge($attributes, $argAttributes);
         // }}}        
-        $tagImage = $this->__img($argID, $attributes);
-        return $tagImage->fetch();
+
+        return $this->__img($argID, $attributes)->fetch();
     }
 
     /**
@@ -551,10 +633,10 @@ class HTML_Object
             $attributes = array_merge($attributes, $argAttributes);
         // }}}
 
-        $tagLink = $this->__a($argID, $attributes);
-        $tagLink->innerHTML($argLabel);
+        // $tagLink = ;
+        $tagLink;
 
-        return $tagLink->fetch();
+        return $this->__a($argID, $attributes)->innerHTML($argLabel)->fetch();
     }
 
     /**
