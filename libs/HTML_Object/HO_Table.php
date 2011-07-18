@@ -12,9 +12,9 @@
  * @category    PHP Object
  * @package     HTML Object
  * @author      Abdul Hanan (http://hanan.qummatic.com) Original Author
- * @copyright   2010 bekasi-code.qummatic.com
+ * @copyright   2011 bekasi-code.qummatic.com
  * @license     http://www.gnu.org/licenses/lgpl-3.0.txt LGPL Version 3
- * @version     ver 0.1
+ * @version     ver 0.2
  * @link        http://bekasi-code.qummatic.com/html-object
  *
  */
@@ -31,7 +31,7 @@
  *
  * @subpackage HTML Table
  * @access private
- * @version class-ver 0.1.1
+ * @version class-ver 0.2
  * @author Abdul Hanan (http://hanan.qummatic.com)
  */
 class HO_Table extends HTML_Object
@@ -111,7 +111,7 @@ class HO_Table extends HTML_Object
         foreach ($this->arrAttributes as $key => $value) {
             $tagTable->attribute($key, $value);
         }
-        $tagTable->innerHTML($tableTHeadContent.$tableTBodyContent.$tableRowContent.$tableTFootContent);
+        $tagTable->innerHTML($tableTHeadContent . $tableTBodyContent . $tableRowContent . $tableTFootContent);
         $this->tableContent = $tagTable->fetch();
     }
 
@@ -127,6 +127,7 @@ class HO_Table extends HTML_Object
     public function attribute($argName, $argValue = NULL)
     {
         $this->arrAttributes[$argName] = $argValue;
+        return $this;
     }
 
     /**
@@ -138,6 +139,7 @@ class HO_Table extends HTML_Object
     public function id($argValue)
     {
         $this->arrAttributes['id'] = $argValue;
+        return $this;
     }
 
     /**
@@ -149,6 +151,7 @@ class HO_Table extends HTML_Object
     public function name($argValue)
     {
         $this->arrAttributes['name'] = $argValue;
+        return $this;
     }
 
     /**
@@ -160,6 +163,7 @@ class HO_Table extends HTML_Object
     public function setClass($argValue)
     {
         $this->arrAttributes['class'] = $argValue;
+        return $this;
     }
 
     /**
@@ -171,6 +175,7 @@ class HO_Table extends HTML_Object
     public function style($argStyle)
     {
         $this->arrAttributes['style'] = $argStyle;
+        return $this;
     }
 
     /**
@@ -189,6 +194,7 @@ class HO_Table extends HTML_Object
             $this->arrRow = array('id'=>'table-row');
 
         $this->row = new HO_Table_Row($this->arrRow);
+        return $this->row;
     }
 
     /**
@@ -221,6 +227,7 @@ class HO_Table extends HTML_Object
             $this->arrTHead = array('id'=>'table-head');
 
         $this->thead = new HO_Table_THead($this->arrTHead);
+        return $this->thead;
     }
 
     /**
@@ -239,6 +246,7 @@ class HO_Table extends HTML_Object
             $this->arrTBody = array('id'=>'table-body');
 
         $this->tbody = new HO_Table_TBody($this->arrTBody);
+        return $this->tbody;
     }
 
     /**
@@ -257,6 +265,7 @@ class HO_Table extends HTML_Object
             $this->arrTFoot = array('id'=>'table-foot');
 
         $this->tfoot = new HO_Table_TFoot($this->arrTFoot);
+        return $this->tbody;
     }
 
     /**
