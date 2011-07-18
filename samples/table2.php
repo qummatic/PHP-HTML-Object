@@ -10,7 +10,7 @@
  * @author      Abdul Hanan (http://hanan.qummatic.com)
  * @copyright   2010 bekasi-code.qummatic.com
  * @license     http://creativecommons.org/licenses/GPL/2.0/ CC-GNU GPL version 2 or later
- * @version     ver 0.1
+ * @version     ver 0.2
  * @link        http://bekasi-code.qummatic.com/html-object
  *
  */
@@ -29,9 +29,9 @@ $objHTMLTable->setClass('table-grid');
 
 // Registers table header
 $objHTMLTable->thead();
-$objHTMLTable->thead->row("row-head");
-$objHTMLTable->thead->row->head("No", array('width'=>'20'));
-$objHTMLTable->thead->row->head("City");
+$objHTMLTable->thead->row("row-head")
+    ->head("No", array('width'=>'20'))
+    ->head("City");
 $objHTMLTable->thead->apply();
 
 // Registers table body
@@ -39,9 +39,9 @@ $objHTMLTable->tbody('table-body');
 $i = 0;
 foreach ($city as $value) {
     $i++;
-    $objHTMLTable->tbody->row("row-$i");
-    $objHTMLTable->tbody->row->col($i.". ", array('align'=>'right'));
-    $objHTMLTable->tbody->row->col($value);
+    $objHTMLTable->tbody->row("row-$i")
+        ->col($i.". ", array('align'=>'right'))
+        ->col($value);
     $objHTMLTable->tbody->apply();
 }
 
@@ -55,11 +55,11 @@ $body = $objHTML->div($body, "content");
 
 // {{{ Scripts for creating HTML Document
 $objHTMLDocument = clone $objHTML->Document;
-$objHTMLDocument->head();
-$objHTMLDocument->head->title("HTML Object Sample - Table");
-$objHTMLDocument->head->cssURL("includes/tables.css");
-$objHTMLDocument->body();
-$objHTMLDocument->body->content($body);
+$objHTMLDocument->head()
+    ->title("HTML Object Sample - Table")
+    ->cssURL("includes/tables.css");
+$objHTMLDocument->body()
+    ->content($body);
 $objHTMLDocument->display();
 // }}}
 ?>
