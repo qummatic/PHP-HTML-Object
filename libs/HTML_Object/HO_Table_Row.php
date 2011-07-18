@@ -12,9 +12,9 @@
  * @category    PHP Object
  * @package     HTML Object
  * @author      Abdul Hanan (http://hanan.qummatic.com) Original Author
- * @copyright   2010 bekasi-code.qummatic.com
+ * @copyright   2011 bekasi-code.qummatic.com
  * @license     http://www.gnu.org/licenses/lgpl-3.0.txt LGPL Version 3
- * @version     ver 0.1
+ * @version     ver 0.2
  * @link        http://bekasi-code.qummatic.com/html-object
  *
  */
@@ -27,7 +27,7 @@
  *
  * @subpackage HTML Table
  * @access  private
- * @version class-ver 0.1.1
+ * @version class-ver 0.2
  * @author Abdul Hanan (http://hanan.qummatic.com)
  */
 class HO_Table_Row extends HO_Table
@@ -96,6 +96,7 @@ class HO_Table_Row extends HO_Table
     public function attribute($argName, $argValue = NULL)
     {
         $this->arrAttributes[$argName] = $argValue;
+        return $this;
     }
 
     /**
@@ -109,6 +110,7 @@ class HO_Table_Row extends HO_Table
     public function style($argStyle)
     {
         $this->arrAttributes['style'] = $argStyle;
+        return $this;
     }
 
     /**
@@ -129,6 +131,7 @@ class HO_Table_Row extends HO_Table
             $tagTD->attribute($key, $value);
         }
         $this->arrCols[] = $tagTD->fetch();
+        return $this;
     }
 
     /**
@@ -149,6 +152,7 @@ class HO_Table_Row extends HO_Table
             $tagTH->attribute($key, $value);
         }
         $this->arrCols[] = $tagTH->fetch();
+        return $this;
     }
 
     /**
