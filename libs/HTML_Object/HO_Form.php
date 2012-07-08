@@ -169,11 +169,36 @@ class HO_Form extends HTML_Object
                 $option->innerHTML(($isHTMLSpecialChars) ? htmlspecialchars($value, ENT_QUOTES) : $value);
                 $optionContent .= $option->fetch();
             }
-
-            $select->innerHTML($optionContent);
         }
+        $select->innerHTML($optionContent);
 
         return $select->fetch();
+    }
+    
+    /**
+     * Defines button form in html document
+     *
+     * @access public
+     * @param string $argID
+     * @param string $argValue
+     * @param string $argName
+     * @param array $argAttributes
+     * @param boolean $isHTMLSpecialChars
+     * @return string
+     */
+    public function button($argID, $argType = 'button', $argValue = '', $argName = NULL, $argAttributes = array(), $isHTMLSpecialChars = true)
+    {
+        $arrAttributes = $argAttributes;
+        $arrAttributes['type'] = $argType ;
+        
+        $button = $this->__button($argID, $arrAttributes);
+        if (!is_null($argName) && trim($argName))
+            $button->name($argName);
+        if ($this->stripslashes)
+            $argValue = stripslashes($argValue);
+        $button->innerHTML(($isHTMLSpecialChars) ? htmlspecialchars($argValue, ENT_QUOTES) : $argValue);
+
+        return $button->fetch();
     }
 }
 ?>

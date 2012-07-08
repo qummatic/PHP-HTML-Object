@@ -134,7 +134,7 @@ class HO_Table_TFoot extends HO_Table
         if (!is_null($argID) && trim($argID))
             $this->arrRow = array('id'=>$argID);
         else
-            $this->arrRow = array('id'=>'table-row');
+            $this->arrRow = array();
 
         $this->row = new HO_Table_Row($this->arrRow);
         return $this->row;

@@ -61,6 +61,12 @@ class HTML_Object
     public $Table;
     public $Form;
     /**#@-*/
+    
+    /**
+     * @var     boolean
+     * @access  public
+     */
+    public $isFormatting = true;
 
     /**
      * Constructor of the container class
@@ -77,16 +83,16 @@ class HTML_Object
     }
 
     /**
-     * Generating formating content
+     * Generating formatting content
      *
-     * This method generate formating content with wiki markup.
+     * This method generates formatting content with wiki markup.
      * Added in v0.2
-     *
+     * 
      * @access  public
      * @param string $argContent
      * @return  string
      */
-    protected function formating($argContent)
+    protected function formatting($argContent)
     {
         $content = preg_replace("/'''(.*?)'''/", $this->strong('$1'), $argContent);
         $content = preg_replace("/''(.*?)''/", $this->emphasize('$1'), $content);
@@ -94,7 +100,7 @@ class HTML_Object
         $content = preg_replace('/<s>(.*?)<\/s>/', $this->strike('$1'), $content);
         $content = preg_replace('/<u>(.*?)<\/u>/i', $this->span('$1'), $content);
         $content = preg_replace('/\[(.*?) (.*?)\]/', $this->link('$2', '$1', NULL, NULL, array('title'=>'$2')), $content);
-        $content = preg_replace('/\[(.*?)]/', $this->link('$1', '$1'), $content);
+        // $content = preg_replace('/\[(.*?)]/', $this->link('$1', '$1'), $content);
 
         return $content;
     }
@@ -204,7 +210,7 @@ class HTML_Object
             $attributes = array_merge($attributes, $argAttributes);
         // }}}
 
-        $innerHTML = $this->formating($argHTML);
+        $innerHTML = $this->formatting($argHTML);
         return $this->__div($argID, $attributes)->innerHTML($innerHTML)->fetch();
     }
 
@@ -234,7 +240,7 @@ class HTML_Object
             $attributes = array_merge($attributes, $argAttributes);
         // }}}
 
-        $innerHTML = $this->formating($argHTML);
+        $innerHTML = $this->formatting($argHTML);
         return $this->__p($argID, $attributes)->innerHTML($innerHTML)->fetch();
     }
 
